@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Object Model - Practice</title>
+</head>
+<body>
+
+
+    <h1>Document Object Model - Practice</h1>
+
+    <p>See: <a href="https://github.com/prof-rossetti/internet-technologies/blob/main/notes/javascript/document.md">DOM notes</a></p>
+
+    <div id="my-container">
+        <p id="my-message">some placeholder content</p>
+    </div>
+
+    <button id="my-awesome-btn">
+        Click Me
+    </button>
+
+    <script type="text/javascript">
+
+        // select elements from the DOM by specifying their unique identifiers:
+        //var myDiv = document.getElementById("my-container")
+        //var myParagraph = document.getElementById("my-message")
+
+        // manipulate properties of an element:
+        //myParagraph.innerHTML = "Fun times!"
+        //myParagraph.style.color = "red"
+
+        // can even create new elements:
+        //var myHeading = document.createElement("h3")
+        //myHeading.innerHTML = "This is a heading"
+        //myDiv.appendChild(myHeading)
+
+    </script>
+
+    <script type="text/javascript">
+
+        var clickCount = 0
+
+        // access the button element from the DOM by specifying its unique identifier
+        //var myBtn = document.getElementById("my-awesome-btn")
+
+        // define a click event handler function
+        //function myBtnClick() {
+        //    clickCount = clickCount + 1
+        //    console.log("YOU CLICKED ME", clickCount, "TIMES! :-)")
+        //}
+
+        // register the handler function to the button's click event
+        //myBtn.addEventListener("click", myBtnClick, false)
+
+    </script>
+</body>
+</html>

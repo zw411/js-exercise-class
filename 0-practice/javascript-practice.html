@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JavaScript Practice</title>
+</head>
+<body>
+
+    <h1>JavaScript Practice</h1>
+
+    <p>Reference these
+        <a href="https://github.com/prof-rossetti/internet-technologies/blob/main/notes/javascript/README.md">JavaScript Notes </a>
+        and implement them in the script tag at the bottom of this HTML document.
+    </p>
+
+    <p>Use your browser's inspection tools to open the JavaScript console to view the results.</p>
+
+    <script type="text/javascript">
+
+        // VARIABLES / DATATYPES
+
+        var i = 10
+        console.log("INTEGER:", i)
+
+        var f = 0.45
+        console.log("FLOAT:", f)
+
+        var s = "My Message"
+        console.log("STRING:", s)
+
+        console.log("-----------------")
+        var d = new Date(2025,4,2)
+        console.log("DATE:")
+        console.log(d) //> Fri May 02 2025 00:00:00 GMT-0400 (Eastern Daylight Time)
+        console.log(d.toDateString()) //> Fri May 02 2025
+        console.log(d.toLocaleDateString()) //> 5/2/2025
+        console.log(d.toISOString().slice(0, 10)) //> 2025-05-02
+
+        var now = new Date()
+        console.log("NOW:", now)
+
+        console.log("-----------------")
+
+        var a = [1,2,3,4]
+        console.log("ARRAY:", a)
+
+        var o = {title: "Harry Potter and the Deathly Hallows: Part 2", year: 2011}
+        console.log("OBJECT:", o)
+
+        // FUNCTIONS
+
+        console.log("-----------------")
+
+        var myFunc = function(){
+            console.log("LOGGING FROM INSIDE A FUNCTION")
+        }
+
+        myFunc() // invokes the function
+        myFunc()
+        myFunc()
+
+
+
+
+
+
+    </script>
+</body>
+</html>
