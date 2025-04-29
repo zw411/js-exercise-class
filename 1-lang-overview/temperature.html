@@ -64,24 +64,41 @@
         console.log("---------------------")
         console.log("PART 1...")
 
-
-
+        var tempC = -270
+        var tempF = 9/5 * tempC + 32
+        console.log("C:", tempC)
+        console.log("F:", tempF)
 
 
         console.log("---------------------")
         console.log("PART 2...")
 
+        function calculateTemp(c) {
+            return 9/5 * c + 32
+        }
 
-
-
+        var tempC = -270
+        var tempF = calculateTemp(tempC)
+        console.log("C:", tempC)
+        console.log("F:", tempF)
 
 
         console.log("---------------------")
         console.log("PART 3...")
 
+        var btn = document.getElementById("calculate")
+        var inputC = document.getElementById("input-temp-c")
+        var displayF = document.getElementById("display-temp-f")
 
+        function submit() {
+            var tempC = inputC.value
+            var tempF = calculateTemp(tempC)
+            console.log("C:", tempC)
+            console.log("F:", tempF)
 
-
+            displayF.innerText = tempF
+        }
+        btn.addEventListener("click", submit, false)
 
     </script>
 </body>

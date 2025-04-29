@@ -58,9 +58,18 @@
         console.log("---------------------")
         console.log("PART 1...")
 
+        var balance = 150000
+        var year = 0
 
+        while (balance < 1000000) {
+            year = year + 1
+            balance = balance * 1.08
 
+            console.log(year, balance)
+        }
 
+        console.log("Done!")
+        console.log(year, balance)
 
 
         console.log("---------------------")

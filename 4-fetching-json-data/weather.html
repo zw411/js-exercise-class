@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Forecast (JSON)</title>
+
+    <style>
+        /*
+            STYLES FOR TABLE BORDERS (FEEL FREE TO UPDATE)
+            https://www.w3schools.com/html/html_table_borders.asp
+        */
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Weather Forecast (JSON)</h1>
+    <a href="../index.html">Home</a>
+
+    <h2>Dataset Information</h2>
+    <p>For this exercise, we will use a JSON file called <a href="https://raw.githubusercontent.com/prof-rossetti/internet-technologies/refs/heads/main/data/weather-data.json">"weather-data.json"</a>
+        that has been uploaded to the Internet.
+        The JSON file contains weather forecast data that was originally retrieved from the Weather.gov API.
+    </p>
+
+    <h2>Part 1</h2>
+    <p>
+        Write JavaScript code to answer the questions below.
+        Log each of the answers to the console.
+
+        <ol type="A">
+            <li>Fetch the weather data using the provided URL.</li>
+            <li>Display the date this data was generated (i.e. "2021-06-08").</li>
+            <li>Display the number of periods of available data (i.e. 14).</li>
+            <li>Use a filtering operation to arrive at a subset of the periods that are daytime only (excluding night-time periods),
+                and store them in a variable called <code>daytimePeriods</code>.
+            </li>
+            <li>Display the number of daytime periods (i.e. 7).</li>
+            <li>For each daytime period, display a human-readable weather forecast on that date, including:
+                 the period name, temperature (and temperature unit), and a short or long forecast.
+            </li>
+        </ol>
+    </p>
+
+
+    <h2>Part 2</h2>
+    <p>
+        Write JavaScript code to answer the questions below.
+        Display the answers on the page in the designated areas.
+    </p>
+
+    <ol type="A">
+        <li>Display the date this data was generated. Use the designated <code>span</code> element.</li>
+        <li>Display a seven day forecast, using the daytime periods only.
+            Use the designated <code>table</code> element.
+            The table should have four columns ("Period", "Temperature", "Forecast", and "Icon").
+            There should be a row for each daytime period.
+            Include the period name, temperature (and temperature unit), and a short or long forecast.
+            Also display the weather icon as an image.
+        </li>
+    </ol>
+
+    <hr>
+    <h2>Display</h2>
+    <div id="weather-app">
+        <p>Date: <span id="display-date">TODO</span></p>
+
+        <p>Seven Day Forecast:</p>
+        <table id="display-forecast" style="border:1px solid black;">
+        </table>
+    </div>
+
+
+    <script type="text/javascript">
+
+        var degreeSymbol = "\u00B0"
+
+        var requestUrl = "https://raw.githubusercontent.com/prof-rossetti/internet-technologies/refs/heads/main/data/weather-data.json"
+
+        fetch(requestUrl).then(response => response.json())
+            .then(function(data){
+                console.log("DATA", data)
+
+
+                console.log("---------------------")
+                console.log("PART 1...")
+
+                console.log("Date:", data.properties.generatedAt) //B
+
+                console.log("Periods:", data.properties.periods.length) //C
+
+                var daytimePeriods = data.properties.periods.filter(function(period){
+                    return period.isDaytime == true
+                }) //D
+
+                console.log("Daytime Periods:", daytimePeriods.length) //E
+
+                daytimePeriods.forEach(function(p) {  
+                    console.log("----")
+                    console.log(p.name, p.temperature + degreeSymbol + p.temperatureUnit)
+                    console.log(p.shortForecast)
+                }) //F
+
+
+                console.log("---------------------")
+                console.log("PART 2...")
+
+
+
+
+            })
+            .catch(err => console.log(err))
+
+    </script>
+</body>
+</html>
