@@ -94,15 +94,32 @@
             console.log("---------------------")
             console.log("PART 1...")
 
+            console.log("D. Number of days:", data.length)  //D
 
+            var earliestP =  parseFloat(data[data.length - 1].adjusted_close)
+            var latestP =  parseFloat(data[0].adjusted_close)
+
+            console.log("E.")  //E
+            console.log("Earliest day:", data[data.length - 1].timestamp)
+            console.log("Adjusted closing price:", formatUSD(earliestP))
+
+            console.log("F.")  //F
+            console.log("Latest day:", data[0].timestamp)
+            console.log("Adjusted closing price:", formatUSD(latestP))
+
+            console.log("G.") //G
+            var p = (latestP - earliestP) / earliestP
+            console.log("Percent change:", formatPct(p))
 
 
 
             console.log("---------------------")
             console.log("PART 2...")
 
-
-
+            document.getElementById("display-symbol").textContent = symbol
+            document.getElementById("display-earliest").textContent = data[data.length - 1].timestamp + ", Adjusted closing price: " + formatUSD(earliestP)
+            document.getElementById("display-latest").textContent = data[0].timestamp + ", Adjusted closing price: " + formatUSD(latestP)
+            document.getElementById("display-pct-change").textContent = formatPct(p)
 
 
 

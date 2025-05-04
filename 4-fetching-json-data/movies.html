@@ -80,23 +80,75 @@
 
         fetch(requestUrl).then(response => response.json())
             .then(function(data){
-                console.log("DATA", data)
-
 
                 console.log("---------------------")
                 console.log("PART 1...")
 
+                console.log("A. Movie data:", data) //A
 
+                console.log("B. Number of movies:", data.length) //B
 
+                console.log("C. Title and year of each movie:") //C
+                data.forEach(function(d) {  
+                    console.log("---", d.Title, d.Year)
+                })
+              
+                console.log("D. Highest rated movie:") //D
+                data.sort(function(a, b){
+                    return a.Rating - b.Rating
+                })
+                console.log(data[data.length - 1].Title, "; Rating:", data[data.length - 1].Rating)
 
 
 
                 console.log("---------------------")
                 console.log("PART 2...")
 
+                // A
+                var select = document.getElementById("select-movie")
 
+                data.sort(function(a, b){
+                    return d3.ascending(a.Id, b.Id)
+                })
 
+                data.forEach(function(d) {
+                    var option = document.createElement("option")
+                    option.value = d.Id
+                    option.textContent = d.Title
+                    select.appendChild(option)
+                })
 
+                // B
+                var displayT = document.getElementById("display-title")
+                var displayY = document.getElementById("display-year")
+                var displayR = document.getElementById("display-rating")
+                var displayI = document.getElementById("image-container")
+
+                function updateMovieInfo() {
+
+                    var movie = data.find(function(d){
+                        return d.Id == select.value
+                    })
+                    
+                   if (movie) {
+                        displayT.textContent = movie.Title
+                        displayY.textContent = movie.Year
+                        displayR.textContent = movie.Rating
+
+                        displayI.innerHTML = "" // Clear any previous image
+                        var img = document.createElement("img")
+                        img.src = movie["Thumbnail Image URL"]
+                        displayI.appendChild(img)
+                   } else {
+                        displayT.textContent = "TODO"
+                        displayY.textContent = "TODO"
+                        displayR.textContent = "TODO"
+                        displayI.innerHTML = ""
+                   }
+                }
+
+                // C
+                select.addEventListener("change", updateMovieInfo, false)
 
             })
             .catch(err => console.log(err))

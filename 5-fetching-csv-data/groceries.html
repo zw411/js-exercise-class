@@ -82,20 +82,56 @@
             console.log("---------------------")
             console.log("PART 1...")
 
+            console.log("B. Number of products:", products.length)  //B
 
+            console.log("C. Name and price of each product:") //C
+            products.forEach(function(p) {  
+                console.log("...", p.name, formatUSD(parseFloat(p.price)))
+            }) 
 
+            console.log("D. Departments:") //D
+            var departments = []
+            products.forEach(function(p) {
+                if (!departments.includes(p.department)) {
+                    departments.push(p.department)
+                }
+            })
+            console.log(departments)
+
+            console.log("E. Number of departments:", departments.length)  //E
+
+            console.log("F. Name of each department:") //F
+            departments.forEach(function(d) {  
+                console.log("...", d.toUpperCase())
+            }) 
+
+            console.log("G. Beverages:") //G
+            var beverages = products.filter(function(p){
+                return p.department == "beverages"
+            }) 
+            console.log(beverages)
+
+            console.log("H. Number of beverage products:", beverages.length)  //H
+
+            var sumP = 0  
+            beverages.forEach(function(b) {  
+                sumP = sumP + parseFloat(b.price)
+            }) 
+            console.log("I. Average price of beverage products:", formatUSD(sumP / beverages.length)) //I
+                        
 
 
 
             console.log("---------------------")
             console.log("PART 2...")
 
+            var display = document.getElementById("display-groceries")
 
-
-
-
-
-
+            products.forEach(function(p) {
+                var li = document.createElement("li")
+                li.textContent = p.name + " -- " + formatUSD(parseFloat(p.price))
+                display.appendChild(li)
+            })
 
 
 

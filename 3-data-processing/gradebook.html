@@ -4,6 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Gradebook</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 5px;
+        }
+    </style>    
 </head>
 <body>
 
@@ -64,17 +71,66 @@
         console.log("---------------------")
         console.log("PART 1...")
 
+        console.log("A)")
+        console.log("Date downloaded", gradebook.downloadDate)
 
+        console.log("B)")
+        console.log("Number of students:", gradebook.students.length)
 
+        console.log("C)")
+        gradebook.students.forEach(function(student) {
+            console.log(student.name + ": ", student.finalGrade)
+        })
+
+        console.log("D)")
+        var grades = gradebook.students.map(function(student) {
+            return student.finalGrade
+        })
+        console.log("Grades:", grades)
+
+        console.log("E)")
+        console.log(d3.mean(grades).toFixed(2))
+
+        console.log("F)")
+        console.log(d3.median(grades))
 
 
 
         console.log("---------------------")
         console.log("PART 2...")
 
+        var table = document.getElementById("display-gradebook")
 
+        var headerRow = document.createElement("tr")
+        var h1 = document.createElement("th"), h2 = document.createElement("th"), h3 = document.createElement("th")
 
+        h1.textContent = "Student ID"
+        h2.textContent = "Student Name"
+        h3.textContent = "Final Grade"
 
+        headerRow.appendChild(h1)
+        headerRow.appendChild(h2)
+        headerRow.appendChild(h3)
+
+        table.appendChild(headerRow)
+
+        gradebook.students.forEach(function(student) {
+            var row = document.createElement("tr")
+
+            var cellId = document.createElement("td")
+            cellId.textContent = student.studentId
+            row.appendChild(cellId)
+
+            var cellName = document.createElement("td");
+            cellName.textContent = student.name
+            row.appendChild(cellName)
+
+            var cellGrade = document.createElement("td")
+            cellGrade.textContent = student.finalGrade
+            row.appendChild(cellGrade)
+
+            table.appendChild(row)
+        });
 
 
     </script>

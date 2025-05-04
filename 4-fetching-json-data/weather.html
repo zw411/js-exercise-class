@@ -47,7 +47,6 @@
         </ol>
     </p>
 
-
     <h2>Part 2</h2>
     <p>
         Write JavaScript code to answer the questions below.
@@ -84,36 +83,76 @@
 
         fetch(requestUrl).then(response => response.json())
             .then(function(data){
-                console.log("DATA", data)
-
-
+                
                 console.log("---------------------")
                 console.log("PART 1...")
 
-                console.log("Date:", data.properties.generatedAt) //B
+                console.log("A. DATA", data)  //A
 
-                console.log("Periods:", data.properties.periods.length) //C
+                console.log("B. Date:", data.properties.generatedAt.split("T")[0]) //B
+
+                console.log("C. Periods:", data.properties.periods.length) //C
 
                 var daytimePeriods = data.properties.periods.filter(function(period){
                     return period.isDaytime == true
-                }) //D
+                }) 
+                console.log("D. Daytime Periods:", daytimePeriods)  //D
 
-                console.log("Daytime Periods:", daytimePeriods.length) //E
+                console.log("E. Number of Daytime Periods:", daytimePeriods.length) //E
 
+                console.log("F. Daytime Weather Forecast:") //F
                 daytimePeriods.forEach(function(p) {  
-                    console.log("----")
-                    console.log(p.name, p.temperature + degreeSymbol + p.temperatureUnit)
-                    console.log(p.shortForecast)
-                }) //F
+                    console.log("...", p.name, p.temperature + degreeSymbol + p.temperatureUnit, p.shortForecast)
+                }) 
 
 
                 console.log("---------------------")
                 console.log("PART 2...")
 
+                // A
+                var displayD = document.getElementById("display-date")
+                displayD.innerText = data.properties.generatedAt.split("T")[0]
 
 
+                // B
+                var table = document.getElementById("display-forecast")
+
+                var headerRow = document.createElement("tr")
+                table.appendChild(headerRow)
+                var headers = ["Period", "Temperature", "Forecast", "Icon"]
+                headers.forEach(function(header){
+                    h = document.createElement("th")
+                    h.textContent = header
+                    headerRow.appendChild(h)
+                })
+
+                daytimePeriods.forEach(function(dp) {
+                    var row = document.createElement("tr")
+
+                    var cellName = document.createElement("td");
+                    cellName.textContent = dp.name
+                    row.appendChild(cellName)
+
+                    var cellTemp = document.createElement("td")
+                    cellTemp.textContent = dp.temperature + degreeSymbol + dp.temperatureUnit
+                    row.appendChild(cellTemp)
+
+                    var cellForecast = document.createElement("td")
+                    cellForecast.textContent = dp.detailedForecast
+                    row.appendChild(cellForecast)
+
+                    var cellIcon = document.createElement("td")
+                    var icon = document.createElement("img")
+                    icon.src = dp.icon
+                    icon.alt = "Weather icon for " + dp.name
+                    cellIcon.appendChild(icon)
+                    row.appendChild(cellIcon)
+
+                    table.appendChild(row)
+                });               
 
             })
+
             .catch(err => console.log(err))
 
     </script>

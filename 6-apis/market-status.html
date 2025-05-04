@@ -67,7 +67,6 @@
 
 
 
-
     <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
     <script type="text/javascript">
 
@@ -83,8 +82,6 @@
         }
 
 
-
-
         var requestUrl = `https://www.alphavantage.co/query?function=MARKET_STATUS&apikey=${apiKey}`
         d3.json(requestUrl).then(function(data) {
             console.log("RESPONSE:", data)
@@ -92,20 +89,50 @@
             console.log("---------------------")
             console.log("PART 1...")
 
+            console.log("B. Number of markets:", data.markets.length)  //B
 
+            console.log("C. Equity Markets:")  //C
+            var equityMarkets = data.markets.filter(function(m){
+                return m.market_type == "Equity"
+            }) 
+            console.log(equityMarkets)
+
+            console.log("D. Number of equity markets:", equityMarkets.length)  //D
+
+            console.log("E. Market type and region of each equity market:")  //E
+            equityMarkets.forEach(function(e) {  
+                console.log(e.market_type + ", " + e.region)
+            }) 
+
+            console.log("F. US equity market:")  //F
+            var market = equityMarkets.find(function(e) {  
+                return e.region == "United States"
+            }) 
+            console.log(market)
+
+            console.log("G. US market information:")  //G
+            console.log("... Market type:", market.market_type)
+            console.log("... Primary exchanges:", market.primary_exchanges)
+            console.log("... Open time:", market.local_open)
+            console.log("... Close time:", market.local_close)
+            console.log("... Current market status:", market.current_status.toUpperCase())
 
 
 
             console.log("---------------------")
             console.log("PART 2...")
 
-
+            document.getElementById("display-region").innerText = market.region
+            document.getElementById("display-type").innerText = market.market_type
+            document.getElementById("display-exchanges").innerText = market.primary_exchanges
+            document.getElementById("display-open").innerText = market.local_open
+            document.getElementById("display-close").innerText = market.local_close
+            document.getElementById("display-status").innerText = market.current_status
 
 
         }).catch(function(error) {
             console.error("ERROR:", error)
         })
-
 
 
     </script>

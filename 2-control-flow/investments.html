@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,7 +34,7 @@
         <strong>HINT:</strong> see the <a href="https://d3js.org/d3-random#randomNormal"><code>d3.randomNormal()</code> function</a> provided by the <code>d3-random</code> library.
     </p>
     <p>In addition to logging the original balance, the number of years, and the actual ending balance to the console, the program should also log the specific random return rates used each year.
-</p>
+    </p>
 
     <hr>
     <h2>Part 3</h2>
@@ -46,6 +44,25 @@
         and display the resulting number of years and actual ending balance on the page.
     </p>
 
+    <label>Beginning Balance:</label>
+    <input id="input-balance-begin" type="number" placeholder="150000" value="150000"></input>    
+    <label>Desired Ending Balance:</label>
+    <input id="input-balance-end" type="number" placeholder="1000000" value="1000000"></input>
+    <br><br>
+    <label>How To Generate Return Rate:</label><br>
+    <label>Mean:</label>
+    <input id="input-mean" type="number" placeholder="8%" value="0.08"></input>
+    <label>Standard deviation:</label>
+    <input id="input-std" type="number" placeholder="15%" value="0.15"></input>
+    <br><br>
+    <button id="simulate">Run Simulation</button>
+
+    <br><br>
+    <label>----------Display Results----------</label><br><br>
+    <label>Number of years:</label>
+    <span id="display-year">...</span><br>
+    <label>Ending balance:</label>
+    <span id="display-balance">...</span><br>
 
 
     <script src="https://cdn.jsdelivr.net/npm/d3-random@3"></script>
@@ -58,32 +75,74 @@
         console.log("---------------------")
         console.log("PART 1...")
 
-        var balance = 150000
+        var balance_begin = 150000
+        var balance = balance_begin
         var year = 0
 
         while (balance < 1000000) {
             year = year + 1
             balance = balance * 1.08
-
-            console.log(year, balance)
         }
 
-        console.log("Done!")
-        console.log(year, balance)
+        console.log("Original balance:", formatUSD(balance_begin))
+        console.log("Number of years:", year)
+        console.log("Ending balance:", formatUSD(balance))
 
 
         console.log("---------------------")
         console.log("PART 2...")
 
+        var rateGen = d3.randomNormal(0.08, 0.15)
 
+        var balance_begin = 150000
+        var balance = balance_begin
+        var year = 0
 
+        while (balance < 1000000) {
+            year = year + 1
+            var r = rateGen()
+            console.log("Year", year, ": rate = ", r)        
+            balance = balance * (r + 1)
+        }
+
+        console.log("Done!")
+        console.log("Original balance:", formatUSD(balance_begin))
+        console.log("Number of years:", year)
+        console.log("Ending balance:", formatUSD(balance))
 
 
 
         console.log("---------------------")
         console.log("PART 3...")
 
+        var simuBtn = document.getElementById("simulate")
 
+        function simulate() {
+            var mean = document.getElementById("input-mean").value
+            var std = document.getElementById("input-std").value
+            var balance_begin = document.getElementById("input-balance-begin").value
+            var balance_goal = parseFloat(document.getElementById("input-balance-end").value)
+
+            var display_year = document.getElementById("display-year")
+            var display_balance = document.getElementById("display-balance")
+
+            var rateGen = d3.randomNormal(mean, std)
+            var balance = parseFloat(balance_begin)
+            var year = 0
+
+            while (balance < balance_goal) {
+                year = year + 1
+                var r = rateGen()        
+                console.log("Year", year, ": rate = ", r)               
+                balance = balance * (r + 1)
+            }
+
+            console.log("Done!")
+            display_year.innerText = year
+            display_balance.innerText = formatUSD(balance)
+        }
+
+        simuBtn.addEventListener("click", simulate, false)
 
 
     </script>
